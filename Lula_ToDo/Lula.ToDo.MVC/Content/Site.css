@@ -1,24 +1,60 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.header-img {
+    width: 100%;
+    position: absolute;
+    z-index: -1;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.list_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+#todo_list_div {
+    background-color: white;
+    width: 100%;
+    margin: 3rem 0 3rem 0;
+}
+
+#add_new_input, .todo_item {
+    height: 5rem;
+    width: 100%;
+}
+
+.todo_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid hsl(0, 0%, 98%);
+}
+
+    .todo_item > p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin: 0 0 0 2rem !important;
+    }
+
+.list_content {
+    width: 40rem;
+}
+
+.header {
+    padding: 7rem 0 3rem 0;
+    font-size: 3em;
+    font-weight: bold;
+    letter-spacing: 0.35em;
+    color: hsl(0, 0%, 98%);
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0 !important;
+        }
+
+.status_checkbox {
+    width: 10%;
 }
