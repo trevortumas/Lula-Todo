@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Lula.ToDo.API.Models;
 
 namespace Lula.ToDo.MVC.Managers
@@ -18,13 +11,50 @@ namespace Lula.ToDo.MVC.Managers
         {
             string html = "";
 
-            // I know this is wrong. I was running low on time and having trouble with getting the WebAPI set up. 
-            // see comments in the ToDoController of the API for more details. 
-            ToDoItem item = oFactory.ToDoItemAPI.AddUpdate(description);
+            ToDoItem item = oFactory.ToDoItemAPI.AddToDoItem(description);
 
-            html = $"<div class=\"todo_item\"><input class=\"status_checkbox\" type=\"checkbox\"/><p>{ description }</p></div>";
+            if (item.Success)
+                AppendHtmlLine(item, ref html);
 
             return html;
+        }
+
+        internal string DeleteToDoItem(int id)
+        {
+            ToDoItem item = oFactory.ToDoItemAPI.DeleteToDoItem(id);
+
+            if (item.Success)
+                return "success"; // I would use these validation messages to communicate with the user when necessary.
+            else
+                return item.Message;
+        }
+
+        internal string UpdateToDoItem(int id, bool completeStatus, string description, bool active)
+        {
+            ToDoItem item = new ToDoItem() { ToDoItemID = id, Complete = completeStatus, Description = description, Active = active };
+            
+            item = oFactory.ToDoItemAPI.UpdateToDoItem(item);
+
+            if (item.Success)
+                return "success";
+            else
+                return item.Message;
+        }
+
+        internal string GetAll()
+        {
+            string html = "";
+            List<ToDoItem> items = oFactory.ToDoItemAPI.GetAll();
+
+            foreach (ToDoItem item in items)
+                AppendHtmlLine(item, ref html);
+
+            return html;
+        }
+
+        private void AppendHtmlLine(ToDoItem item, ref string html)
+        {
+            html += $"<div class=\"todo_item\" data-id=\"{item.ToDoItemID}\"><div><label class=\"checkbox_cont\"><input {(item.Complete ? "checked" : "")} type=\"checkbox\"/><span class=\"checkmark\"></span></label></div><p>{ item.Description }</p><div class=\"cross_icn\"><img src=\"./Content/images/icon-cross.svg\"></div></div>";
         }
     }
 }

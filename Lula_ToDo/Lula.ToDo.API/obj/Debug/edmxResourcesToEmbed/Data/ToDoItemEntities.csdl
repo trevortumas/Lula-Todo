@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbToDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ToDoItem">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="Complete" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="dbToDoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ToDoItems" EntityType="Self.ToDoItem" />
+    <FunctionImport Name="ToDoItems_Add">
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Active" Mode="In" Type="Boolean" />
+      <Parameter Name="Complete" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="ToDoItems_Delete">
+      <Parameter Name="ItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ToDoItems_GetAll" ReturnType="Collection(dbToDoModel.ToDoItems_GetAll_Result)" />
+    <FunctionImport Name="ToDoItems_Update">
+      <Parameter Name="ToDoID" Mode="In" Type="Int32" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Active" Mode="In" Type="Boolean" />
+      <Parameter Name="Complete" Mode="In" Type="Boolean" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="ToDoItems_GetAll_Result">
+    <Property Type="Int32" Name="ItemID" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+    <Property Type="Boolean" Name="Active" Nullable="true" />
+    <Property Type="Boolean" Name="Complete" Nullable="true" />
+  </ComplexType>
+</Schema>

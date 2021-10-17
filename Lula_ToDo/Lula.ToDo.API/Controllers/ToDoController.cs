@@ -1,41 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Http.Results;
 
 namespace Lula.ToDo.API.Controllers
 {
     [RoutePrefix("api/ToDo")]
-    public class ToDoController
+    public class ToDoController : ApiController
     {
-        // This is how I would normally set up a basic controller for an API. 
-        // I realized as I started doing this that I admittedly didn't know how to
-        // set this up from scratch to be able to make web requests from my MVC project. 
-        // At my job, there's a framework set up that takes care of all of this. I wasted
-        // a lot of time trying to figure it out for this assignment.
         private Factory oFactory = new Factory();
 
         [HttpPost]
-        [Route("AddUpdate")]
-        public Models.ToDoItem AddUpdate(string description)
+        [Route("Add")]
+        public Models.ToDoItem Add(Models.ToDoItem item)
         {
-            return oFactory.ToDoItemManager.AddUpdate(description);
+            return oFactory.ToDoItemManager.Add(item);
         }
 
         [HttpPost]
         [Route("Delete")]
-        public string Delete(int id)
+        public Models.ToDoItem Delete(Models.ToDoItem item)
         {
-            return "";
+            return oFactory.ToDoItemManager.Delete(item);
+        }
+
+        [HttpPost]
+        [Route("Update")]
+        public Models.ToDoItem Update(Models.ToDoItem item)
+        {
+            return oFactory.ToDoItemManager.Update(item);
         }
 
         [HttpGet]
-        [Route("GetList")]
-        public string GetList()
+        [Route("GetAll")]
+        public List<Models.ToDoItem> GetAllToDoItems()
         {
-            return "";
+            return oFactory.ToDoItemManager.GetAll();
         }
     }
 }

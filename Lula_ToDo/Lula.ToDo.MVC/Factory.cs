@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Lula.ToDo.MVC
+﻿namespace Lula.ToDo.MVC
 {
     public class Factory
     {
@@ -13,10 +8,10 @@ namespace Lula.ToDo.MVC
             get => _ToDoItemManager = _ToDoItemManager ?? new Managers.ToDoItemManager();
         }
 
-        private API.Controllers.ToDoController _ToDoItemAPI;
-        internal API.Controllers.ToDoController ToDoItemAPI
+        private WebAPI_References.LulaToDoAPIProxy _ToDoItemAPI;
+        internal WebAPI_References.LulaToDoAPIProxy ToDoItemAPI
         {
-            get => _ToDoItemAPI = _ToDoItemAPI ?? new API.Controllers.ToDoController();
+            get => _ToDoItemAPI = _ToDoItemAPI ?? new WebAPI_References.LulaToDoAPIProxy();
         }
     }
 }

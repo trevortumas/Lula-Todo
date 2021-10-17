@@ -10,17 +10,27 @@
                 <p class="header">TODO</p>
             </div>
 
-            <input id="add_new_input" placeholder="Create a new todo..." />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <label class="checkbox_cont"><input id="add_new_cb" type="checkbox"><span class="checkmark"></span></label>
+                </span>
+                <input class="form-control" id="add_new_input" placeholder="Create a new todo..." />
+            </div>
 
             <div id="todo_list_div">
-                <div class="todo_item">
-                    <input class="status_checkbox" type="checkbox" />
-                    <p>To do placeholder 1</p>
-                </div>
-                <div class="todo_item">
-                    <input class="status_checkbox" type="checkbox" />
-                    <p>To do placeholder 2</p>
-                </div>
+                <div id="todo_footer">
+                    <div class="footer_section">
+                        <div><span id="list_count"></span> items left</div>
+                    </div>
+                    <div class="footer_section">
+                        <div class="footer_button" id="filter_all">All</div>
+                        <div class="footer_button" id="filter_active">Active</div>
+                        <div class="footer_button" id="filter_completed">Completed</div>
+                    </div>
+                    <div class="footer_section">
+                        <div class="footer_button" id="clear_completed">Clear Completed</div>
+                    </div>
+                </div>               
             </div>
         </div>
     </div>
@@ -28,21 +38,118 @@
 
 @section scripts {
     <script>
-    addToDoItemURL = "@Url.Action("AddToDoItem", "Home")";
+        $(document).ready(function () {
+            var addToDoItemURL = "@Url.Action("AddToDoItem", "Home")",
+                getAllToDoItemsURL = "@Url.Action("GetAll", "Home")",
+                deleteItemURL = "@Url.Action("DeleteToDoItem", "Home")",
+                updateItemURL = "@Url.Action("UpdateToDoItem", "Home")";
 
-    $("#add_new_input").keyup(function (event) {
-        if (event.keyCode === 13) {
+            // get all to do items / restore state
             $.ajax({
-                url: addToDoItemURL,
-                type: "POST",
-                data: { description: $('#add_new_input').val(), complete: false, active: true },
+                url: getAllToDoItemsURL,
+                type: "GET",
                 success: function (html) {
+                    // add to-do item to DOM
                     $('#todo_list_div').prepend(html);
-                    $("#add_new_input").val("");
+                    initCrossEvents();
+                    initCheckboxEvents();
+                    updateListCount();
                 }
             });
-        }
-    });
+
+            // delete completed items event
+            $('#clear_completed').on('click', function () {
+                $('input:checked').each(function () {
+                    executeDeleteRequest($(this).parent().parent().parent().attr("data-id"), $(this).parent().parent());
+                });
+            });
+
+            // filter by active
+            $('#filter_active').on('click', function () {
+                $("input:checkbox:not(#add_new_cb)").parent().parent().parent().css("display", "");
+                $("input:checkbox:not(#add_new_cb):checked").parent().parent().parent().toggle();
+            });
+
+            // filter by all
+            $('#filter_all').on('click', function () {
+                $("input:checkbox:not(#add_new_cb)").parent().parent().parent().css("display", "");
+            });
+
+            // filter by complete
+            $('#filter_completed').on('click', function () {
+                $("input:checkbox:not(#add_new_cb)").parent().parent().parent().css("display", "");
+                $("input:checkbox:not(#add_new_cb):not(:checked)").parent().parent().parent().toggle();
+            });
+
+            // add item event
+            $("#add_new_input").keyup(function (event) {
+                if (event.keyCode === 13) {
+                    $.ajax({
+                        url: addToDoItemURL,
+                        type: "POST",
+                        data: { description: $('#add_new_input').val(), complete: false, active: true },
+                        success: function (html) {
+                            $('#todo_list_div').prepend(html);
+                            $("#add_new_input").val("");
+                            initCrossEvents();
+                            initCheckboxEvents();
+                            updateListCount();
+                        }
+                    });
+                }
+            });         
+
+            function initCheckboxEvents() {
+                $(".checkbox_cont input").off();
+                $("input:checkbox:not(#add_new_cb):checked").parent().parent().next().addClass('todo_item_completed');
+
+                // update complete status event
+                $(".checkbox_cont input:checkbox:not(#add_new_cb)").on('change', function (event) {
+                    var cb = $(this);
+                    $(cb).parent().parent().next().toggleClass('todo_item_completed');
+                    $.ajax({
+                        url: updateItemURL,
+                        type: "POST",
+                        data: { id: $(cb).parent().parent().parent().attr("data-id"), completeStatus: $(cb).is(":checked"), description: $(cb).parent().parent().next().text(), active: true },
+                        success: function (message) {
+                            initCrossEvents();
+                        }
+                    });
+                });
+            }
+
+            function initCrossEvents() {
+                $('.todo_item').off();
+
+                // only show cross on hover
+                $('.todo_item').on("mouseenter mouseleave", function () {
+                    $(this).children().last().toggle();
+                });
+
+                // delete item event
+                $('.cross_icn').on('click', function () {
+                    var id = $(this).parent().attr("data-id");
+
+                    executeDeleteRequest(id, this);
+                });
+            }
+
+            function executeDeleteRequest(id, domObj) {
+                $.ajax({
+                    url: deleteItemURL,
+                    type: "POST",
+                    data: { id: id },
+                    success: function (message) {
+                        $(domObj).parent().remove();
+                        updateListCount();
+                    }
+                });
+            }
+
+            function updateListCount() {
+                $('#list_count').text(`${$('.todo_item').length}`);
+            }
+        });
     </script>
 
 }

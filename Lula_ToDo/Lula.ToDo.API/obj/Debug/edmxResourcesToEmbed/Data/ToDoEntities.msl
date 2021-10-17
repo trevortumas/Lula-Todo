@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbToDoModelStoreContainer" CdmEntityContainer="dbToDoEntities">
+    <EntitySetMapping Name="ToDoItems">
+      <EntityTypeMapping TypeName="dbToDoModel.ToDoItem">
+        <MappingFragment StoreEntitySet="ToDoItems">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Complete" ColumnName="Complete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ToDoItems_Add" FunctionName="dbToDoModel.Store.ToDoItems_Add" />
+    <FunctionImportMapping FunctionImportName="ToDoItems_Delete" FunctionName="dbToDoModel.Store.ToDoItems_Delete" />
+    <FunctionImportMapping FunctionImportName="ToDoItems_GetAll" FunctionName="dbToDoModel.Store.ToDoItems_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbToDoModel.ToDoItems_GetAll_Result">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Complete" ColumnName="Complete" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

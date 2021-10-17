@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Lula.ToDo.API.Models
+﻿namespace Lula.ToDo.API.Models
 {
     public class ModelBase
     {
         public string Message { get; set; }
-        public string Success { get; set; }
+        public bool Success { get; set; }
 
-        public ModelBase(string message, string success)
+        public ModelBase(string message, bool success)
         {
             Message = message;
             Success = success;
