@@ -14,7 +14,7 @@
 
             <div id="todo_list_div">
                 <div class="todo_item">
-                    <input class="status_checkbox" type="checkbox"/>
+                    <input class="status_checkbox" type="checkbox" />
                     <p>To do placeholder 1</p>
                 </div>
                 <div class="todo_item">
@@ -22,12 +22,28 @@
                     <p>To do placeholder 2</p>
                 </div>
             </div>
-        </div>       
+        </div>
     </div>
 </div>
 
-<script>
+@section scripts {
+    <script>
     addToDoItemURL = "@Url.Action("AddToDoItem", "Home")";
 
+    $("#add_new_input").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $.ajax({
+                url: addToDoItemURL,
+                type: "POST",
+                data: { description: $('#add_new_input').val(), complete: false, active: true },
+                success: function (html) {
+                    $('#todo_list_div').prepend(html);
+                    $("#add_new_input").val("");
+                }
+            });
+        }
+    });
+    </script>
 
-</script>
+}
+

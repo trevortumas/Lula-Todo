@@ -78,8 +78,8 @@ C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lu
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\bin\System.Web.WebPages.Razor.xml
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\bin\Antlr3.Runtime.pdb
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.csprojAssemblyReference.cache
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.csproj.CoreCompileInputs.cache
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.csproj.CopyComplete
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.dll
 C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.pdb
+C:\Users\trevo\OneDrive\Desktop\Folders\Development\todo-app-xzjahe\Lula_ToDo\Lula.ToDo.API\obj\Debug\Lula.ToDo.API.csprojAssemblyReference.cache

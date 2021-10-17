@@ -12,5 +12,11 @@ namespace Lula.ToDo.API
         {
             get => _ToDoItemManager = _ToDoItemManager ?? new Managers.ToDoItemManager();
         }
+
+        private Data.dbToDoItemData _dbToDoItemData;
+        internal Data.dbToDoItemData dbToDoItemData
+        {
+            get => _dbToDoItemData = _dbToDoItemData ?? new Data.dbToDoItemData();
+        }
     }
 }

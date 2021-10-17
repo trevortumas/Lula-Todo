@@ -7,10 +7,16 @@ namespace Lula.ToDo.MVC
 {
     public class Factory
     {
-        //private Lula.ToDo.API;
-        //internal Managers.ToDoItemManager ToDoItemManager
-        //{
-        //    get => _ToDoItemManager = _ToDoItemManager ?? new Managers.ToDoItemManager();
-        //}
+        private Managers.ToDoItemManager _ToDoItemManager;
+        internal Managers.ToDoItemManager ToDoItemManager
+        {
+            get => _ToDoItemManager = _ToDoItemManager ?? new Managers.ToDoItemManager();
+        }
+
+        private API.Controllers.ToDoController _ToDoItemAPI;
+        internal API.Controllers.ToDoController ToDoItemAPI
+        {
+            get => _ToDoItemAPI = _ToDoItemAPI ?? new API.Controllers.ToDoController();
+        }
     }
 }
